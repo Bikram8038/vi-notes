@@ -13,7 +13,6 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-// ✅ Fix ESM/CommonJS interop
 const plugin = passportLocalMongoose.default || passportLocalMongoose;
 
 userSchema.plugin(plugin, {

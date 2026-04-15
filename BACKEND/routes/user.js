@@ -29,7 +29,7 @@ router.post("/register", async (req, res, next) => {
 
     const registeredUser = await User.register(newUser, password);
 
-    // 🔐 Auto login after register
+    // Auto login after register
     req.login(registeredUser, (err) => {
       if (err) return next(err);
 
@@ -63,7 +63,7 @@ router.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) return next(err);
 
-    // ❌ Login failed
+    //  Login failed
     console.log(user);
     
     if (!user) {
@@ -73,7 +73,7 @@ router.post("/login", (req, res, next) => {
       });
     }
 
-    // ✅ Login success
+    // Login success
     req.login(user, (err) => {
       if (err) return next(err);
 
@@ -86,7 +86,7 @@ router.post("/login", (req, res, next) => {
   })(req, res, next);
 });
 
-// ✅ Logout
+// Logout
 router.post("/logout", (req, res) => {
   req.logout((err) => {
     if (err) {
@@ -103,7 +103,7 @@ router.post("/logout", (req, res) => {
   });
 });
 
-// ✅ Get current user
+//  Get current user
 router.get("/me", (req, res) => {
   if (req.isAuthenticated()) {
     return res.status(200).json({

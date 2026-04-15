@@ -40,9 +40,9 @@ import noteRouter from "./routes/note.js";
 async function connectDB() {
   try {
     await mongoose.connect(process.env.MONGO_URI || "mongodb://127.0.0.1:27017/Vibe");
-    console.log("✅ Connected to MongoDB database");
+    console.log("Connected to MongoDB database");
   } catch (error) {
-    console.error("❌ MongoDB connection failed:", error);
+    console.error("MongoDB connection failed:", error);
     process.exit(1);
   }
 }
@@ -105,5 +105,5 @@ app.use((err, req, res, next) => {
 // Start Server
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });

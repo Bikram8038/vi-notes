@@ -3,7 +3,7 @@ import Note from "../models/note.js";
 
 const router = express.Router();
 
-// ✅ create note
+// create note
 router.post("/add-note", async (req, res) => {
   try {
     const { title, note, userId } = req.body;
@@ -38,7 +38,7 @@ router.post("/add-note", async (req, res) => {
   }
 });
 
-// ✅ get all notes for a user
+// get all notes for a user
 router.get("/user/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
@@ -58,7 +58,7 @@ router.get("/user/:userId", async (req, res) => {
   }
 });
 
-// ✅ delete a note
+// delete a note
 router.delete("/:noteId", async (req, res) => {
   try {
     const { noteId } = req.params;
