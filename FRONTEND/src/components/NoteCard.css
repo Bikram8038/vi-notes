@@ -1,0 +1,247 @@
+.note-card {
+  background: linear-gradient(135deg, #ffffff 0%, #fefefe 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.note-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px 16px 0 0;
+}
+
+.note-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  border-color: rgba(102, 126, 234, 0.2);
+}
+
+.note-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 18px;
+  position: relative;
+  z-index: 1;
+}
+
+.note-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0;
+  word-break: break-word;
+  flex: 1;
+  max-width: 70%;
+  line-height: 1.3;
+}
+
+.note-actions {
+  display: flex;
+  gap: 6px;
+  margin-left: 12px;
+}
+
+.edit-btn, .delete-btn, .save-btn, .cancel-edit-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  min-height: 36px;
+}
+
+.edit-btn {
+  color: #667eea;
+}
+
+.edit-btn:hover {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+  color: #5a6fd8;
+  transform: scale(1.05);
+}
+
+.delete-btn {
+  color: #e53e3e;
+}
+
+.delete-btn:hover {
+  background: linear-gradient(135deg, rgba(229, 62, 62, 0.1), rgba(197, 48, 48, 0.1));
+  color: #c53030;
+  transform: scale(1.05);
+}
+
+.save-btn {
+  color: #48bb78;
+  font-size: 18px;
+}
+
+.save-btn:hover {
+  background: linear-gradient(135deg, rgba(72, 187, 120, 0.1), rgba(56, 161, 105, 0.1));
+  color: #38a169;
+  transform: scale(1.05);
+}
+
+.cancel-edit-btn {
+  color: #718096;
+  font-size: 18px;
+}
+
+.cancel-edit-btn:hover {
+  background: rgba(113, 128, 150, 0.1);
+  color: #4a5568;
+  transform: scale(1.05);
+}
+
+.edit-title-input, .edit-content-input {
+  width: 100%;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #2d3748;
+  background: #f8fafc;
+  outline: none;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.edit-title-input {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #2d3748;
+}
+
+.edit-title-input:focus, .edit-content-input:focus {
+  border-color: #667eea;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  transform: translateY(-1px);
+}
+
+.edit-content-input {
+  min-height: 140px;
+  resize: vertical;
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+.edit-error {
+  font-size: 0.85rem;
+  color: #e53e3e;
+  margin: 8px 0;
+  font-weight: 500;
+}
+
+.note-content {
+  font-size: 15px;
+  color: #4a5568;
+  line-height: 1.7;
+  margin: 0 0 20px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-word;
+  position: relative;
+  z-index: 1;
+}
+
+.note-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding-top: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.note-date {
+  font-size: 13px;
+  color: #718096;
+  font-weight: 500;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .note-card {
+    padding: 20px;
+  }
+
+  .note-title {
+    font-size: 16px;
+  }
+
+  .note-content {
+    font-size: 14px;
+    -webkit-line-clamp: 3;
+  }
+
+  .edit-title-input {
+    font-size: 16px;
+  }
+
+  .edit-content-input {
+    min-height: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .note-card {
+    padding: 16px;
+  }
+
+  .note-card-header {
+    margin-bottom: 14px;
+  }
+
+  .note-title {
+    font-size: 15px;
+    max-width: 65%;
+  }
+
+  .note-actions {
+    gap: 4px;
+    margin-left: 8px;
+  }
+
+  .edit-btn, .delete-btn, .save-btn, .cancel-edit-btn {
+    padding: 6px 8px;
+    min-width: 32px;
+    min-height: 32px;
+    font-size: 14px;
+  }
+
+  .note-content {
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+
+  .note-footer {
+    padding-top: 12px;
+  }
+
+  .note-date {
+    font-size: 12px;
+  }
+}

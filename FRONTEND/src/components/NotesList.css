@@ -1,0 +1,147 @@
+.notes-list-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.loading {
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 16px;
+  color: #6b7280;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.error-message {
+  background: linear-gradient(135deg, #fed7d7, #feb2b2);
+  color: #c53030;
+  padding: 16px 20px;
+  border-radius: 12px;
+  border-left: 4px solid #e53e3e;
+  margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(197, 48, 48, 0.1);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.empty-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  color: #a0aec0;
+}
+
+.empty-text {
+  font-size: 18px;
+  color: #4a5568;
+  margin: 0;
+  font-weight: 500;
+}
+
+.notes-grid {
+  width: 100%;
+}
+
+.notes-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.notes-header h2 {
+  font-size: 2.5rem;
+  color: #2d3748;
+  margin: 0 0 0.5rem 0;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.notes-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .notes-list-container {
+    padding: 1.5rem;
+  }
+
+  .notes-card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .notes-header h2 {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .notes-list-container {
+    padding: 1rem;
+  }
+
+  .notes-card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+
+  .notes-header h2 {
+    font-size: 2rem;
+  }
+
+  .empty-state {
+    padding: 60px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .notes-list-container {
+    padding: 0.5rem;
+  }
+
+  .notes-card-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .notes-header h2 {
+    font-size: 1.8rem;
+  }
+
+  .empty-icon {
+    font-size: 36px;
+  }
+
+  .empty-text {
+    font-size: 16px;
+  }
+
+  .empty-state {
+    padding: 50px 20px;
+  }
+}

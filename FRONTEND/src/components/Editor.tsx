@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Header from "./Header";
+import NotesList from "./NotesList";
+import "./Editor.css" assert { type: "css" };
 
 export default function Edit() {
   const [text, setText] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<string>("");
+  const [showCreateForm, setShowCreateForm] = useState<boolean>(false);
+  const notesListRef = useRef<HTMLDivElement>(null);
 
   const handleInput = (
     e: React.ChangeEvent<HTMLTextAreaElement>
@@ -24,7 +28,7 @@ export default function Edit() {
   ) => {
     e.preventDefault();
 
-    // validation
+    //  validation
     if (title.trim() === "") {
       setError("Title is required!");
       setSuccess("");
@@ -55,7 +59,7 @@ export default function Edit() {
           headers: {
             "Content-Type": "application/json",
           },
-          credentials: "include", // important for passport session
+          credentials: "include", // ✅ important for passport session
           body: JSON.stringify({
             title,
             note: text,
@@ -74,13 +78,24 @@ export default function Edit() {
 
       console.log(data);
 
-      // success message
+      //  success message
       setSuccess("Note saved successfully!");
       setError("");
 
       //  clear form
       setText("");
       setTitle("");
+
+      //  Hide form after successful save
+      setTimeout(() => {
+        setShowCreateForm(false);
+        setSuccess("");
+      }, 2000);
+
+      //  Refresh notes list
+      if (notesListRef.current) {
+        window.dispatchEvent(new CustomEvent("notesRefresh"));
+      }
     } catch (err) {
       console.error(err);
       setError("Something went wrong");
@@ -92,41 +107,74 @@ export default function Edit() {
     <div className="editor-container">
       <Header />
 
-      <h2 className="heading">Your Notes</h2>
+      {/* Notes List Section - Show First */}
+      <div ref={notesListRef} className="notes-section">
+        <NotesList />
+      </div>
 
-      <form onSubmit={handleSubmit}>
-        {/* Title */}
-        <label htmlFor="title">Title</label>
-        <input
-          id="title"
-          type="text"
-          value={title}
-          onChange={handleTitle}
-          placeholder="Enter title"
-        />
+      {/* New Note Button */}
+      <div className="new-note-section">
+        {!showCreateForm ? (
+          <button
+            className="new-note-btn"
+            onClick={() => setShowCreateForm(true)}
+          >
+            ✏️ Create New Note
+          </button>
+        ) : (
+          <div className="editor-section">
+            <div className="form-header">
+              <h2 className="heading">Create a New Note</h2>
+              <button
+                className="cancel-btn"
+                onClick={() => {
+                  setShowCreateForm(false);
+                  setError("");
+                  setSuccess("");
+                  setTitle("");
+                  setText("");
+                }}
+              >
+                ✕ Cancel
+              </button>
+            </div>
 
-        {/* Error */}
-        {error && <p className="error">{error}</p>}
+            <form onSubmit={handleSubmit}>
+              {/* Title */}
+              <label htmlFor="title">Title</label>
+              <input
+                id="title"
+                type="text"
+                value={title}
+                onChange={handleTitle}
+                placeholder="Enter title"
+              />
 
-        {/* Success */}
-        {success && (
-          <p style={{ color: "green", marginBottom: "10px" }}>
-            {success}
-          </p>
+              {/* Error */}
+              {error && <p className="error">{error}</p>}
+
+              {/* Success */}
+              {success && (
+                <p style={{ color: "green", marginBottom: "10px" }}>
+                  {success}
+                </p>
+              )}
+
+              {/* Content */}
+              <label htmlFor="content">Content</label>
+              <textarea
+                id="content"
+                className="editor"
+                value={text}
+                onChange={handleInput}
+                placeholder="Start writing..."
+              />
+
+              <button type="submit">Save Note</button>
+            </form>
+          </div>
         )}
-
-        {/* Content */}
-        <label htmlFor="content">Content</label>
-        <textarea
-          id="content"
-          className="editor"
-          value={text}
-          onChange={handleInput}
-          placeholder="Start writing..."
-        />
-
-        <button type="submit">Save</button>
-      </form>
+      </div>
     </div>
   );
 }
