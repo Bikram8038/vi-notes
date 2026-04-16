@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import Header from "./Header";
 import NotesList from "./NotesList";
-import "./Editor.css" assert { type: "css" };
+import "./Editor.css" 
 
 export default function Edit() {
   const [text, setText] = useState<string>("");

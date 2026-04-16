@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./NoteCard.css";
+// import "./NoteCard.css";
 
 interface Note {
   _id: string;
