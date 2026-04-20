@@ -58,6 +58,47 @@ router.get("/user/:userId", async (req, res) => {
   }
 });
 
+// update a note
+router.put("/:noteId", async (req, res) => {
+  try {
+    const { noteId } = req.params;
+    const { title, note: content } = req.body;
+
+    if (!title || !content) {
+      return res.status(400).json({
+        success: false,
+        message: "Title and note content are required",
+      });
+    }
+
+    const updatedNote = await Note.findByIdAndUpdate(
+      noteId,
+      { title, note: content },
+      { new: true }
+    );
+
+    if (!updatedNote) {
+      return res.status(404).json({
+        success: false,
+        message: "Note not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Note updated successfully",
+      note: updatedNote,
+    });
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to update note",
+    });
+  }
+});
+
 // delete a note
 router.delete("/:noteId", async (req, res) => {
   try {
