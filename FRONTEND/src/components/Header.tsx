@@ -12,6 +12,7 @@ export default function Header() {
   const handleLogout = () => {
     localStorage.removeItem("user");
     setUserName("");
+    window.dispatchEvent(new CustomEvent("userLogout"));
 
     // redirect to home page
     navigate("/");

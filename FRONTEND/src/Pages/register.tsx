@@ -10,35 +10,33 @@ export default function Register() {
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
 
-const handleRegister = async (e: React.FormEvent) => {
-  e.preventDefault();
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-  try {
-    // API.post("/api/auth/register", data);
-    const res = await API.post("/api/auth/register", {
-      username,
-      email,
-      password,
-    });
+    try {
+      const res = await API.post("/api/auth/register", {
+        username,
+        email,
+        password,
+      });
 
-    //  Save user (auto login)
-    localStorage.setItem("user", JSON.stringify(res.data.user));
-
-    //  Go to home
-    navigate("/");
-
-  } catch (err: unknown) {
-    const error = err as { response?: { data?: { message?: string } } };
-    setError(error.response?.data?.message || "Registration failed");
-  }
-};
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+      navigate("/");
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { message?: string } } };
+      setError(error.response?.data?.message || "Registration failed");
+    }
+  };
 
   return (
     <div style={styles.container}>
       <form onSubmit={handleRegister} style={styles.form}>
-        <h2>Register</h2>
+        <div style={styles.header}>
+          <h2 style={styles.title}>Create your account</h2>
+          <p style={styles.subtitle}>Join now to save notes and keep them synced across devices.</p>
+        </div>
 
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p style={styles.errorText}>{error}</p>}
 
         <input
           type="text"
@@ -71,12 +69,9 @@ const handleRegister = async (e: React.FormEvent) => {
           Register
         </button>
 
-        <p style={{ fontSize: "14px" }}>
-          Already have an account?{" "}
-          <span
-            style={{ color: "blue", cursor: "pointer" }}
-            onClick={() => navigate("/login")}
-          >
+        <p style={styles.footerText}>
+          Already have an account?{' '}
+          <span style={styles.linkText} onClick={() => navigate('/login')}>
             Login
           </span>
         </p>
@@ -87,29 +82,76 @@ const handleRegister = async (e: React.FormEvent) => {
 
 const styles: { [key: string]: React.CSSProperties } = {
   container: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100vh",
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '100vh',
+    padding: '24px',
+    background: 'linear-gradient(180deg, #eff6ff 0%, #ffffff 100%)',
   },
   form: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "10px",
-    padding: "20px",
-    border: "1px solid #ccc",
-    borderRadius: "8px",
-    width: "300px",
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '16px',
+    padding: '32px',
+    width: '100%',
+    maxWidth: '420px',
+    borderRadius: '24px',
+    boxShadow: '0 24px 80px rgba(15, 23, 42, 0.08)',
+    background: 'rgba(255,255,255,0.95)',
+    border: '1px solid rgba(148, 163, 184, 0.2)',
+  },
+  header: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '8px',
+  },
+  title: {
+    margin: 0,
+    fontSize: '28px',
+    color: '#111827',
+  },
+  subtitle: {
+    margin: 0,
+    color: '#4b5563',
+    lineHeight: 1.5,
   },
   input: {
-    padding: "10px",
-    fontSize: "16px",
+    padding: '14px 16px',
+    fontSize: '15px',
+    borderRadius: '14px',
+    border: '1px solid #d1d5db',
+    background: '#f8fafc',
+    outline: 'none',
+    transition: 'border-color 0.2s ease',
   },
   button: {
-    padding: "10px",
-    backgroundColor: "green",
-    color: "#fff",
-    border: "none",
-    cursor: "pointer",
+    padding: '14px 16px',
+    fontSize: '16px',
+    borderRadius: '14px',
+    background: '#10b981',
+    color: '#ffffff',
+    border: 'none',
+    cursor: 'pointer',
+    boxShadow: '0 12px 24px rgba(16, 185, 129, 0.16)',
+  },
+  footerText: {
+    margin: 0,
+    fontSize: '14px',
+    color: '#6b7280',
+    textAlign: 'center',
+  },
+  linkText: {
+    color: '#4338ca',
+    fontWeight: 700,
+    cursor: 'pointer',
+  },
+  errorText: {
+    margin: 0,
+    padding: '12px 14px',
+    borderRadius: '14px',
+    background: '#fee2e2',
+    color: '#b91c1c',
+    border: '1px solid #fca5a5',
   },
 };

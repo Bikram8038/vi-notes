@@ -23,10 +23,18 @@ const NotesList = () => {
       fetchNotes();
     };
 
+    const handleLogout = () => {
+      setNotes([]);
+      setError("Please login to view your notes");
+      setLoading(false);
+    };
+
     window.addEventListener("notesRefresh", handleNotesRefresh);
+    window.addEventListener("userLogout", handleLogout);
 
     return () => {
       window.removeEventListener("notesRefresh", handleNotesRefresh);
+      window.removeEventListener("userLogout", handleLogout);
     };
   }, []);
 
@@ -36,6 +44,7 @@ const NotesList = () => {
       const userId = user._id;
 
       if (!userId) {
+        setNotes([]);
         setError("Please login to view your notes");
         setLoading(false);
         return;
